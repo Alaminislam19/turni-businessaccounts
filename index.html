@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>TURNI · Business Accounts</title><meta name="theme-color" content="#0f766e"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--tx:#14181f;--mut:#6b7280;--bd:#e5e7eb;--pr:#0f766e;--ac:#f59e0b;--rd:#dc2626;--gr:#16a34a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e1116;--card:#171b22;--tx:#eef0f3;--mut:#9aa3af;--bd:#272d37;--pr:#2dd4bf}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0e1116;--card:#171b22;--tx:#eef0f3;--mut:#9aa3af;--bd:#272d37;--pr:#2dd4bf}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,"Noto Sans Bengali",sans-serif}
+*{box-sizing:border-box}
+#app{display:flex;min-height:100vh}
+nav{display:flex;gap:2px;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);overflow-x:auto;padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));z-index:5}
+nav a{flex:1 0 64px;text-align:center;padding:6px 2px;font-size:11px;color:var(--mut);border-radius:8px;cursor:pointer}
+nav a b{display:block;font-size:18px;font-weight:400}
+nav a.on{color:var(--pr);background:color-mix(in srgb,var(--pr) 12%,transparent)}
+main{flex:1;padding:14px 14px 90px;max-width:1100px;margin:0 auto;width:100%}
+@media(min-width:800px){nav{position:sticky;top:0;height:100vh;flex-direction:column;width:190px;border:0;border-right:1px solid var(--bd);padding:14px 8px;flex:none}nav a{flex:none;text-align:left;font-size:14px;padding:9px 12px;display:flex;gap:10px;align-items:center}nav a b{display:inline;font-size:16px}main{padding-bottom:30px}}
+h1{font-size:20px;margin:4px 0 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+h3{font-size:14px;margin:14px 0 6px;color:var(--mut)}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+.k small{color:var(--mut);font-size:12px;display:block}.k b{font-size:19px}
+.pos{color:var(--gr)}.neg{color:var(--rd)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 6px;border-bottom:1px solid var(--bd);text-align:left;vertical-align:middle}th{color:var(--mut);font-weight:500;font-size:12px}
+.tw{overflow-x:auto}
+button,.b{font:inherit;border:0;border-radius:8px;padding:8px 12px;background:var(--pr);color:#fff;cursor:pointer}
+html[data-theme=dark] button,html[data-theme=dark] .b{color:#06201d}
+.b2{background:transparent;color:var(--pr);border:1px solid var(--bd)}.bd{background:var(--rd)!important;color:#fff!important}.sm{padding:4px 8px;font-size:12px}
+input,select,textarea{font:inherit;width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+label{display:block;font-size:12px;color:var(--mut);margin-bottom:8px}
+.bk{position:fixed;inset:0;background:#0007;display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.md{background:var(--card);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:16px}
+@media(min-width:800px){.bk{align-items:center}.md{border-radius:16px}}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.row>button{flex:none}
+.ln{display:grid;grid-template-columns:2fr 1fr 1fr;gap:6px;margin-bottom:6px}
+.ch{width:100%;height:auto}.bar{height:8px;border-radius:4px;background:var(--pr)}
+.tag{padding:2px 8px;border-radius:99px;font-size:11px;background:color-mix(in srgb,var(--pr) 15%,transparent);color:var(--pr)}
+.low{background:color-mix(in srgb,var(--rd) 10%,transparent)}
+#t{position:fixed;top:12px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:8px;z-index:30;display:none}
+#cl{position:fixed;top:calc(6px + env(safe-area-inset-top,0px));right:10px;font-size:12px;color:var(--mut);z-index:6}
+@media print{body>*:not(#m){display:none}.bk{position:static;background:none}.no{display:none}}
+</style></head><body>
+<div id="app"><nav id="nav"></nav><main id="v"></main></div><div id="m"></div><div id="t"></div><div id="cl">☁</div>
+<script>
+const K='turni_hisab_v2';let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!S){try{S=JSON.parse(localStorage.getItem('hisab1'))}catch(e){}}
+ S=S||{set:{name:'',ad:'',ph:'',lang:'bn',theme:'',low:5},p:[],c:[],sup:[],o:[],pu:[],e:[],cap:[],col:[],sp:[],n:0,pn:0};
+const B={Dashboard:'ড্যাশবোর্ড',Sales:'বিক্রি',Products:'পণ্য',Customers:'কাস্টমার',Purchases:'ক্রয়',Expenses:'খরচ',Reports:'রিপোর্ট',Settings:'সেটিংস',
+"Today's sales":'আজকের বিক্রি',"Today's expenses":'আজকের খরচ',"Today's net profit":'আজকের নিট লাভ','Month sales':'মাসের বিক্রি','Month net profit':'মাসের নিট লাভ',Capital:'মূলধন','Cash in hand':'হাতে নগদ',Bank:'ব্যাংক/মোবাইল',Inventory:'স্টকের মূল্য','Customer due':'কাস্টমারের বাকি','Supplier due':'সাপ্লায়ারের বাকি',Orders:'অর্ডার','Low stock':'কম স্টক',
+'Daily sales':'দৈনিক বিক্রি','Revenue & profit':'আয় ও লাভ','Expense categories':'খরচের খাত',Add:'যোগ',Save:'সংরক্ষণ',Cancel:'বাতিল',Edit:'এডিট',Delete:'মুছুন',Search:'খুঁজুন',Name:'নাম',Phone:'ফোন',Address:'ঠিকানা',Category:'ক্যাটেগরি',Price:'দাম',Qty:'পরিমাণ',Stock:'স্টক',Product:'পণ্য','Add item':'পণ্য যোগ',Discount:'ডিসকাউন্ট','Delivery charge':'ডেলিভারি চার্জ',Method:'পদ্ধতি',Status:'স্ট্যাটাস',Paid:'পরিশোধিত',Partial:'আংশিক',Due:'বাকি',Total:'মোট',Profit:'লাভ',Date:'তারিখ',Amount:'টাকা',Note:'বিবরণ',Pay:'পরিশোধ',Collect:'আদায়',Invoice:'ইনভয়েস',Print:'প্রিন্ট',Ledger:'লেজার',
+Pending:'পেন্ডিং',Confirmed:'কনফার্মড',Processing:'প্রসেসিং',Shipped:'শিপড',Delivered:'ডেলিভারড',Cancelled:'বাতিল',Returned:'ফেরত',Cash:'নগদ',COD:'ক্যাশ অন ডেলিভারি','Purchase price':'ক্রয়মূল্য','Selling price':'বিক্রয়মূল্য','Min stock':'ন্যূনতম স্টক',Variants:'ভ্যারিয়েন্ট','New sale':'নতুন বিক্রি','New purchase':'নতুন ক্রয়','New product':'নতুন পণ্য','New expense':'নতুন খরচ','New customer':'নতুন কাস্টমার','New supplier':'নতুন সাপ্লায়ার',Supplier:'সাপ্লায়ার',Suppliers:'সাপ্লায়ার','Adjust stock':'স্টক সংশোধন','Not enough stock':'স্টক পর্যাপ্ত নয়',Packaging:'প্যাকেজিং',Advertising:'বিজ্ঞাপন',Delivery:'ডেলিভারি খরচ',Salary:'বেতন',Rent:'ভাড়া',Electricity:'বিদ্যুৎ',Internet:'ইন্টারনেট',Transportation:'যাতায়াত',Other:'অন্যান্য',
+Revenue:'বিক্রয় আয়',COGS:'পণ্যের ক্রয়মূল্য (COGS)','Gross profit':'মোট লাভ',Operating:'পরিচালন খরচ','Net profit':'নিট লাভ',Today:'আজ',Week:'সপ্তাহ',Month:'মাস',Year:'বছর',From:'শুরু',To:'শেষ','Export CSV':'CSV এক্সপোর্ট','Balance sheet':'ব্যালেন্স শিট',Assets:'সম্পদ',Liabilities:'দায়',Equity:'মালিকানা','Product profit':'পণ্যভিত্তিক লাভ','Add capital':'মূলধন যোগ',Withdraw:'উত্তোলন',Language:'ভাষা',Theme:'থিম','Business name':'ব্যবসার নাম',Backup:'ব্যাকআপ',Restore:'রিস্টোর',Receipt:'রসিদ',Saved:'সংরক্ষিত','Required fields missing':'প্রয়োজনীয় তথ্য দিন','Add items with quantity':'পণ্য ও পরিমাণ দিন',Sure:'নিশ্চিত?',Yes:'হ্যাঁ','No data':'কোনো তথ্য নেই',More:'আরও',Bank_:'ব্যাংক',bKash:'বিকাশ',Nagad:'নগদ (Nagad)',Light:'লাইট',Dark:'ডার্ক',Auto:'অটো',Receivable:'পাওনা (কাস্টমার)',Payable:'দেনা (সাপ্লায়ার)','Retained profit':'সঞ্চিত লাভ','Paid amount':'পরিশোধিত টাকা',Invest:'বিনিয়োগ',Date_:'তারিখ',Cancel_:'বাতিল'};
+const t=k=>S.set.lang==='bn'?(B[k]||k):k;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const N=x=>x.toLocaleString(S.set.lang==='bn'?'bn-BD':'en-IN');
+const M=x=>(x<0?'-':'')+'৳'+N(Math.round(Math.abs(x)));
+const ds=o=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4-(o||0)*864e5).toISOString().slice(0,10);
+const today=()=>ds(0);
+function save(){S.ts=Date.now();try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('Save failed: storage full')}sched()}
+let DB=null,sent=[],pushT,busy=0;
+const cloud=s=>{const e=$('#cl');if(e)e.textContent=s};
+async function initCloud(){try{if(typeof claude=='undefined'){cloud('☁ ✕');return}const[d,u]=await Promise.all([claude.use('db'),claude.use('user')]);if(!d||!u){cloud('☁ ✕');return}DB=d.collection('data/users/'+await u.id());await pull();document.addEventListener('visibilitychange',()=>{if(!document.hidden&&DB&&!busy&&!pushT)pull()})}catch(e){cloud('⚠')}}
+async function pull(){try{const s=await DB.get(),ps=s.docs.map(d=>({i:+d.id.slice(1),...d.data()})).sort((a,b)=>a.i-b.i),cts=ps[0]?.ts||0;
+if(cts>(S.ts||0)){S=JSON.parse(ps.map(p=>p.s).join(''));sent=ps.map(p=>p.s);try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}render();cloud('☁ ✓')}
+else if(cts==(S.ts||0)&&ps.length){sent=ps.map(p=>p.s);cloud('☁ ✓')}
+else if(S.ts){sent=ps.map(p=>p.s);push()}else cloud('☁ ✓')}catch(e){cloud('⚠')}}
+function sched(){if(!DB)return;cloud('☁…');clearTimeout(pushT);pushT=setTimeout(()=>{pushT=0;push()},1200)}
+async function push(){if(!DB)return;if(busy){return sched()}busy=1;const mine=S.ts;try{const str=JSON.stringify(S),ch=[];for(let i=0;i<str.length;i+=60000)ch.push(str.slice(i,i+60000));
+for(let i=0;i<ch.length;i++)if(i==0||sent[i]!==ch[i])await DB.doc('p'+i).set({s:ch[i],ts:mine,n:ch.length});
+for(let i=ch.length;i<sent.length;i++)await DB.doc('p'+i).delete();sent=ch;cloud('☁ ✓')}catch(e){cloud('⚠');toast('Cloud save failed')}busy=0;if(S.ts!=mine)sched()}
+function toast(m){const e=$('#t');e.textContent=m;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>e.style.display='none',2500)}
+const $=q=>document.querySelector(q);
+const ok=s=>!['Cancelled','Returned'].includes(s.st);
+const sub=s=>s.it.reduce((a,i)=>a+i.q*i.pr,0),sTot=s=>sub(s)-s.d+s.dc,sCogs=s=>s.it.reduce((a,i)=>a+i.q*i.cs,0),pTot=o=>o.it.reduce((a,i)=>a+i.q*i.pr,0);
+const bk=m=>m==='Bank'||m==='bKash'||m==='Nagad'?'bank':'cash';
+const sum=(a,f)=>a.reduce((x,y)=>x+f(y),0);
+const cust=id=>S.c.find(x=>x.id==id)||{n:'-'},prod=id=>S.p.find(x=>x.id==id);
+const cDue=c=>sum(S.o.filter(s=>s.cid==c.id&&ok(s)),s=>sTot(s)-s.paid)-sum(S.col.filter(x=>x.id==c.id),x=>x.a);
+const sDue=c=>sum(S.pu.filter(s=>s.sid==c.id),s=>pTot(s)-s.paid)-sum(S.sp.filter(x=>x.id==c.id),x=>x.a);
+function stat(f,to){const r=x=>x.date>=f&&x.date<=to,o=S.o.filter(s=>s.st==='Delivered'&&r(s)),e=S.e.filter(r),rev=sum(o,sTot),cogs=sum(o,sCogs),ex=sum(e,x=>x.a);return{rev,cogs,gp:rev-cogs,ex,net:rev-cogs-ex,n:o.length,e}}
+function bal(){const a={cash:0,bank:0};S.cap.forEach(c=>a[bk(c.m)]+=c.a);S.o.filter(ok).forEach(s=>a[bk(s.m)]+=s.paid);S.col.forEach(c=>a[bk(c.m)]+=c.a);S.pu.forEach(p=>a[bk(p.m)]-=p.paid);S.sp.forEach(c=>a[bk(c.m)]-=c.a);S.e.forEach(c=>a[bk(c.m)]-=c.a);return a}
+const inv=()=>sum(S.p,p=>p.stock*p.cost);
+function bars(d,two){const w=300,h=110,vs=d.flatMap(x=>[x.a,x.b||0]),mx=Math.max(1,...vs),mn=Math.min(0,...vs),r=mx-mn,y=v=>6+(mx-v)/r*(h-22),z=y(0),bw=w/d.length;return`<svg viewBox="0 0 ${w} ${h}" class="ch">${d.map((x,i)=>{const bx=i*bw+bw*.15,ww=bw*(two?.35:.7);let s=`<rect x="${bx}" y="${Math.min(y(x.a),z)}" width="${ww}" height="${Math.abs(y(x.a)-z)||1}" rx="2" fill="var(--pr)"/>`;if(two)s+=`<rect x="${bx+ww+1}" y="${Math.min(y(x.b),z)}" width="${ww}" height="${Math.abs(y(x.b)-z)||1}" rx="2" fill="var(--ac)"/>`;return s+`<text x="${i*bw+bw/2}" y="${h-3}" font-size="7" text-anchor="middle" fill="var(--mut)">${x.l}</text>`}).join('')}</svg>`}
+const tbl=(h,r)=>r.length?`<div class="tw"><table><tr>${h.map(x=>`<th>${t(x)}</th>`).join('')}</tr>${r.join('')}</table></div>`:`<p style="color:var(--mut)">${t('No data')}</p>`;
+let view='dash',q='',lim=30,per='month',rf='',rt='';
+const NAV=[['dash','⌂','Dashboard'],['sales','৳','Sales'],['products','▣','Products'],['customers','☺','Customers'],['pur','⇩','Purchases'],['exp','−','Expenses'],['rep','≡','Reports'],['set','⚙','Settings']];
+function go(v){view=v;q='';lim=30;render()}
+function render(){document.documentElement.lang=S.set.lang;if(S.set.theme)document.documentElement.dataset.theme=S.set.theme;else delete document.documentElement.dataset.theme;
+$('#nav').innerHTML=NAV.map(n=>`<a class="${view==n[0]?'on':''}" onclick="go('${n[0]}')"><b>${n[1]}</b>${t(n[2])}</a>`).join('');
+$('#v').innerHTML=({dash,sales,products,customers,pur,exp,rep,set})[view]();scrollTo(0,0)}
+const kc=(l,v,c)=>`<div class="c k"><small>${t(l)}</small><b class="${c||''}">${v}</b></div>`;
+const sbox=()=>`<input placeholder="${t('Search')}" value="${esc(q)}" oninput="q=this.value;lim=30;render2()" style="margin-bottom:8px">`;
+function render2(){const p=$('#v input').selectionStart;render();const i=$('#v input');i.focus();i.setSelectionRange(p,p)}
+const more=n=>n>lim?`<button class="b2" style="width:100%;margin-top:8px" onclick="lim+=30;render()">${t('More')}</button>`:'';
+function dash(){const d=today(),a=stat(d,d),m=stat(d.slice(0,8)+'01',d),b=bal(),iv=inv(),cd=sum(S.c,cDue),sd=sum(S.sup,sDue),low=S.p.filter(p=>p.stock<=(p.min??S.set.low));
+const cap=sum(S.cap,c=>c.a);
+const days=[...Array(14)].map((_,i)=>{const x=ds(13-i);return{l:x.slice(8),a:sum(S.o.filter(s=>ok(s)&&s.date==x),sTot)}});
+const ms=[...Array(6)].map((_,i)=>{const x=new Date();x.setDate(1);x.setMonth(x.getMonth()-5+i);const k=x.toISOString().slice(0,7),s=stat(k+'-01',k+'-31');return{l:k.slice(5),a:s.rev,b:s.net}});
+const mc={};m.e.forEach(x=>mc[x.cat]=(mc[x.cat]||0)+x.a);const mx=Math.max(1,...Object.values(mc));
+return`<h1>${esc(S.set.name)||'হিসাব'}<span class="row" style="flex:none"><button onclick="saleForm()">+ ${t('New sale')}</button></span></h1>
+<div class="g">${kc("Today's sales",M(a.rev))}${kc("Today's expenses",M(a.ex))}${kc("Today's net profit",M(a.net),a.net<0?'neg':'pos')}${kc('Month sales',M(m.rev))}${kc('Month net profit',M(m.net),m.net<0?'neg':'pos')}${kc('Capital',M(cap))}${kc('Cash in hand',M(b.cash))}${kc('Bank',M(b.bank))}${kc('Inventory',M(iv))}${kc('Customer due',M(cd))}${kc('Supplier due',M(sd))}${kc('Orders',N(S.o.length))}</div>
+<div class="row"><button class="b2 sm" onclick="capForm(1)">+ ${t('Add capital')}</button><button class="b2 sm" onclick="capForm(-1)">${t('Withdraw')}</button></div>
+${low.length?`<h3>⚠ ${t('Low stock')}</h3><div class="c">${low.map(p=>`<div class="row"><span>${esc(p.n)}</span><b class="neg" style="text-align:right">${N(p.stock)}</b></div>`).join('')}</div>`:''}
+<h3>${t('Daily sales')}</h3><div class="c">${bars(days)}</div><h3>${t('Revenue & profit')}</h3><div class="c">${bars(ms,1)}</div>
+<h3>${t('Expense categories')}</h3><div class="c">${Object.keys(mc).map(k=>`<div style="margin-bottom:6px"><div class="row"><span>${t(k)}</span><span style="text-align:right">${M(mc[k])}</span></div><div class="bar" style="width:${mc[k]/mx*100}%"></div></div>`).join('')||t('No data')}</div>`}
+function ask(msg,fn){window._ask=fn;modal(`<p>${msg}</p><div class="row"><button class="b2" onclick="cm()">${t('Cancel')}</button><button class="bd" onclick="cm();_ask()">${t('Yes')}</button></div>`)}
+function modal(h){$('#m').innerHTML=`<div class="bk" onclick="if(event.target==this)cm()"><div class="md">${h}</div></div>`}
+function cm(){$('#m').innerHTML=''}
+const inp=(k,l,o={})=>`<label>${t(l)}<input id="f_${k}" type="${o.t||'text'}" value="${esc(o.v??'')}" ${o.t=='number'?'min="0" step="any"':''} ${o.x||''}></label>`;
+const sel=(k,l,ops,v,x)=>`<label>${t(l)}<select id="f_${k}" ${x||''}>${ops.map(o=>`<option value="${o}" ${o==v?'selected':''}>${t(o)}</option>`).join('')}</select></label>`;
+const g=k=>$('#f_'+k).value.trim(),gn=k=>+g(k)||0;
+const MET=['Cash','bKash','Nagad','Bank','COD'],MET2=['Cash','bKash','Nagad','Bank'];
+const btns=(fn)=>`<div class="row" style="margin-top:8px"><button class="b2" onclick="cm()">${t('Cancel')}</button><button id="sv" onclick="${fn}">${t('Save')}</button></div>`;
+function err(m){toast(t(m));return 0}
+function addLn(k){const d=document.createElement('div');d.className='ln';d.innerHTML=`<select onchange="pick(this,'${k}')"><option value="">${t('Product')}</option>${S.p.map(p=>`<option value="${p.id}">${esc(p.n)}</option>`).join('')}</select><input type="number" min="0" step="any" placeholder="${t('Qty')}" class="q"><input type="number" min="0" step="any" placeholder="${t('Price')}" class="pr">`;$('#ln').append(d)}
+function pick(el,k){const p=prod(el.value);if(p)el.parentNode.querySelector('.pr').value=k=='s'?p.price:p.cost}
+const readLn=()=>[...document.querySelectorAll('#ln .ln')].map(d=>{const p=prod(d.querySelector('select').value);return p&&{pid:p.id,q:+d.querySelector('.q').value,pr:+d.querySelector('.pr').value,cs:p.cost}}).filter(Boolean);
+const lnBox=k=>`<div id="ln"></div><button type="button" class="b2 sm" onclick="addLn('${k}')">+ ${t('Add item')}</button>`;
+// SALES
+const OST=['Pending','Confirmed','Processing','Shipped','Delivered','Cancelled','Returned'];
+function sales(){const l=S.o.filter(s=>(s.no+cust(s.cid).n+cust(s.cid).ph).toLowerCase().includes(q.toLowerCase())).reverse();
+return`<h1>${t('Sales')}<button onclick="saleForm()">+ ${t('New sale')}</button></h1>${sbox()}${tbl(['Date','Orders','Customers','Total','Due','Status',''],l.slice(0,lim).map(s=>{const c=cust(s.cid);return`<tr><td>${s.date.slice(5)}</td><td>${s.no}</td><td>${esc(c.n)}</td><td>${M(sTot(s))}</td><td class="${sTot(s)-s.paid>0?'neg':''}">${M(sTot(s)-s.paid)}</td><td><select onchange="setSt('${s.id}',this.value)" style="width:auto">${OST.map(o=>`<option value="${o}" ${o==s.st?'selected':''}>${t(o)}</option>`).join('')}</select></td><td><button class="b2 sm" onclick="invoice('${s.id}')">${t('Invoice')}</button></td></tr>`}))}${more(l.length)}`}
+function saleForm(){if(!S.p.length){toast(t('Products')+' ?');return go('products')}
+modal(`<h1>${t('New sale')}</h1>${inp('n','Name')}${inp('ph','Phone',{t:'tel'})}${lnBox('s')}<div class="row" style="margin-top:8px">${inp('d','Discount',{t:'number',v:0})}${inp('dc','Delivery charge',{t:'number',v:0})}</div><div class="row">${sel('m','Method',MET,'Cash')}${sel('ps','Status',['Paid','Partial','Due'],'Paid')}</div>${inp('pd','Paid amount',{t:'number',v:0})}${sel('os','Status',OST,'Confirmed')}${inp('dt','Date',{t:'date',v:today()})}${btns('saveSale()')}`);addLn('s')}
+function saveSale(){const it=readLn();if(!it.length||it.some(i=>!(i.q>0)||i.pr<0))return err('Add items with quantity');
+const need={};for(const i of it){need[i.pid]=(need[i.pid]||0)+i.q}for(const id in need){const p=prod(id);if(p.stock<need[id])return err(p.n+': '+t('Not enough stock'))}
+const nm=g('n');if(!nm||!g('dt'))return err('Required fields missing');
+const d=gn('d'),dc=gn('dc'),tot=sum(it,i=>i.q*i.pr)-d+dc;if(tot<0)return err('Required fields missing');
+const ph=g('ph');let c=S.c.find(x=>ph?x.ph==ph:x.n==nm);if(!c){c={id:uid(),n:nm,ph,ad:''};S.c.push(c)}
+const ps=g('ps'),paid=g('m')==='COD'?0:(ps=='Paid'?tot:ps=='Due'?0:Math.min(gn('pd'),tot));
+$('#sv').disabled=true;for(const id in need)prod(id).stock-=need[id];S.n++;
+S.o.push({id:uid(),no:'ORD-'+String(S.n).padStart(4,'0'),date:g('dt'),cid:c.id,it,d,dc,paid,m:g('m'),st:g('os')});save();cm();toast(t('Saved'));render()}
+function setSt(id,v){const s=S.o.find(x=>x.id==id);if(!s)return;
+if(s.st===v)return;
+if(['Cancelled','Returned'].includes(v)){
+ toast('স্টক স্বয়ংক্রিয়ভাবে ফেরত যাবে না। পণ্য যাচাই করে Stock Adjust করুন।');
+ s.st=v;save();render();return;
+}
+if(['Cancelled','Returned'].includes(s.st)){
+ toast('বাতিল/রিটার্ন অর্ডার পুনরায় চালুর আগে স্টক ও পেমেন্ট ম্যানুয়ালি যাচাই করুন');render();return;
+}
+s.st=v;save();render()}
+function invoice(id){const s=S.o.find(x=>x.id==id),c=cust(s.cid);modal(`<div style="text-align:center"><b>${esc(S.set.name)}</b><br><small>${esc(S.set.ad)} ${esc(S.set.ph)}</small></div><p>${t('Invoice')}: <b>${s.no}</b> · ${s.date}<br>${esc(c.n)} ${esc(c.ph)}</p>${tbl(['Product','Qty','Price','Total'],s.it.map(i=>`<tr><td>${esc(prod(i.pid)?.n||'-')}</td><td>${N(i.q)}</td><td>${M(i.pr)}</td><td>${M(i.q*i.pr)}</td></tr>`))}<p style="text-align:right">${t('Discount')}: ${M(s.d)}<br>${t('Delivery charge')}: ${M(s.dc)}<br><b>${t('Total')}: ${M(sTot(s))}</b><br>${t('Paid')}: ${M(s.paid)} · ${t('Due')}: ${M(sTot(s)-s.paid)}</p><div class="row no"><button class="b2" onclick="cm()">${t('Cancel')}</button><button onclick="print()">${t('Print')}</button></div>`)}
+// PRODUCTS
+function products(){const l=S.p.filter(p=>(p.n+p.sku+p.cat).toLowerCase().includes(q.toLowerCase()));const sold=p=>sum(S.o.filter(ok),s=>sum(s.it.filter(i=>i.pid==p.id),i=>i.q*(i.pr-i.cs)));
+return`<h1>${t('Products')}<button onclick="prodForm()">+ ${t('New product')}</button></h1>${sbox()}${tbl(['','Product','Purchase price','Selling price','Stock','Profit',''],l.slice(0,lim).map(p=>`<tr class="${p.stock<=(p.min??S.set.low)?'low':''}"><td>${p.img?`<img src="${p.img}" width="32" height="32" style="border-radius:6px;object-fit:cover">`:''}</td><td>${esc(p.n)}<br><small style="color:var(--mut)">${esc(p.sku)} ${esc(p.cat)} ${esc(p.v||'')}</small></td><td>${M(p.cost)}</td><td>${M(p.price)}</td><td>${N(p.stock)}</td><td>${M(sold(p))}</td><td style="white-space:nowrap"><button class="b2 sm" onclick="prodForm('${p.id}')">${t('Edit')}</button> <button class="b2 sm" onclick="adj('${p.id}')">±</button> <button class="bd sm" onclick="ask(t('Sure'),()=>{(S.o.some(o=>o.it.some(i=>i.pid==='${p.id}'))||S.pu.some(o=>o.it.some(i=>i.pid==='${p.id}')))?toast('এই পণ্যের লেনদেন আছে; মুছবেন না'): (S.p=S.p.filter(x=>x.id!='${p.id}'),save(),render())})">✕</button></td></tr>`))}${more(l.length)}`}
+function prodForm(id){const p=prod(id)||{};modal(`<h1>${t(id?'Edit':'New product')}</h1>${inp('n','Name',{v:p.n})}<div class="row">${inp('sku','SKU',{v:p.sku})}${inp('cat','Category',{v:p.cat})}</div><div class="row">${inp('cost','Purchase price',{t:'number',v:p.cost})}${inp('price','Selling price',{t:'number',v:p.price})}</div><div class="row">${inp('st','Stock',{t:'number',v:p.stock})}${inp('min','Min stock',{t:'number',v:p.min??S.set.low})}</div>${inp('v','Variants',{v:p.v})}<label>Image<input id="f_img" type="file" accept="image/*"></label>${btns(`saveProd('${id||''}')`)}`)}
+async function img(f,sz){if(!f)return'';const u=URL.createObjectURL(f),i=new Image();await new Promise(r=>{i.onload=r;i.src=u});const c=document.createElement('canvas'),s=Math.min(1,sz/Math.max(i.width,i.height));c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);return c.toDataURL('image/jpeg',.6)}
+async function saveProd(id){if(!g('n'))return err('Required fields missing');if(S.p.some(x=>x.id!=id&&g('sku')&&x.sku==g('sku')))return toast('SKU exists');
+const im=await img($('#f_img').files[0],160),p=prod(id)||{id:uid()};Object.assign(p,{n:g('n'),sku:g('sku'),cat:g('cat'),cost:gn('cost'),price:gn('price'),stock:gn('st'),min:gn('min'),v:g('v')});if(im)p.img=im;if(!id)S.p.push(p);save();cm();render()}
+function adj(id){const p=prod(id);modal(`<h1>${t('Adjust stock')}: ${esc(p.n)}</h1>${inp('q','Stock',{t:'number',v:p.stock})}${btns(`prod('${id}').stock=gn('q');save();cm();render()`)}`)}
+// CUSTOMERS
+function customers(){const l=S.c.filter(c=>(c.n+c.ph).toLowerCase().includes(q.toLowerCase()));
+return`<h1>${t('Customers')}<button onclick="partyForm('c')">+ ${t('New customer')}</button></h1>${sbox()}${tbl(['Name','Total','Paid','Due',''],l.slice(0,lim).map(c=>{const o=S.o.filter(s=>s.cid==c.id&&ok(s)),tt=sum(o,sTot),pd=sum(o,s=>s.paid)+sum(S.col.filter(x=>x.id==c.id),x=>x.a);return`<tr><td>${esc(c.n)}<br><small style="color:var(--mut)">${esc(c.ph)}</small></td><td>${M(tt)}</td><td>${M(pd)}</td><td class="${tt-pd>0?'neg':''}">${M(tt-pd)}</td><td style="white-space:nowrap"><button class="sm" onclick="payForm('c','${c.id}')">${t('Collect')}</button> <button class="b2 sm" onclick="ledger('${c.id}')">${t('Ledger')}</button></td></tr>`}))}${more(l.length)}`}
+function partyForm(k){modal(`<h1>${t(k=='c'?'New customer':'New supplier')}</h1>${inp('n','Name')}${inp('ph','Phone',{t:'tel'})}${inp('ad','Address')}${btns(`saveParty('${k}')`)}`)}
+function saveParty(k){if(!g('n'))return err('Required fields missing');(k=='c'?S.c:S.sup).push({id:uid(),n:g('n'),ph:g('ph'),ad:g('ad')});save();cm();render()}
+function payForm(k,id){const c=(k=='c'?S.c:S.sup).find(x=>x.id==id),d=k=='c'?cDue(c):sDue(c);modal(`<h1>${t(k=='c'?'Collect':'Pay')}: ${esc(c.n)}</h1><p>${t('Due')}: <b>${M(d)}</b></p>${inp('a','Amount',{t:'number',v:d>0?d:0})}${sel('m','Method',MET2,'Cash')}${inp('dt','Date',{t:'date',v:today()})}${btns(`savePay('${k}','${id}')`)}`)}
+function savePay(k,id){const a=gn('a');if(!(a>0))return err('Required fields missing');$('#sv').disabled=true;(k=='c'?S.col:S.sp).push({id,a,m:g('m'),date:g('dt')});save();cm();toast(t('Saved'));render()}
+function ledger(id){const c=cust(id),r=[...S.o.filter(s=>s.cid==id&&ok(s)).map(s=>({d:s.date,n:s.no,dr:sTot(s)-s.paid})),...S.col.filter(x=>x.id==id).map(x=>({d:x.date,n:t('Collect'),dr:-x.a}))].sort((a,b)=>a.d<b.d?-1:1);let run=0;
+modal(`<h1>${esc(c.n)}</h1>${tbl(['Date','Note','Amount','Due'],r.map(x=>{run+=x.dr;return`<tr><td>${x.d.slice(5)}</td><td>${x.n}</td><td>${M(x.dr)}</td><td>${M(run)}</td></tr>`}))}<button class="b2" onclick="cm()">${t('Cancel')}</button>`)}
+// PURCHASES
+function pur(){const l=S.sup.filter(c=>(c.n+c.ph).toLowerCase().includes(q.toLowerCase()));
+return`<h1>${t('Purchases')}<span class="row" style="flex:none"><button class="b2" onclick="partyForm('s')">+ ${t('New supplier')}</button><button onclick="purForm()">+ ${t('New purchase')}</button></span></h1>${sbox()}${tbl(['Supplier','Total','Due',''],l.map(c=>{const d=sDue(c);return`<tr><td>${esc(c.n)}<br><small style="color:var(--mut)">${esc(c.ph)}</small></td><td>${M(sum(S.pu.filter(p=>p.sid==c.id),pTot))}</td><td class="${d>0?'neg':''}">${M(d)}</td><td><button class="sm" onclick="payForm('s','${c.id}')">${t('Pay')}</button></td></tr>`}))}
+<h3>${t('Purchases')}</h3>${tbl(['Date','Supplier','Total','Paid'],[...S.pu].reverse().slice(0,lim).map(p=>`<tr><td>${p.date.slice(5)}</td><td>${esc(S.sup.find(x=>x.id==p.sid)?.n||'-')}</td><td>${M(pTot(p))}</td><td>${M(p.paid)}</td></tr>`))}`}
+function purForm(){if(!S.p.length||!S.sup.length){toast(t('Suppliers')+' / '+t('Products')+' ?');return}
+modal(`<h1>${t('New purchase')}</h1><label>${t('Supplier')}<select id="f_s">${S.sup.map(c=>`<option value="${c.id}">${esc(c.n)}</option>`).join('')}</select></label>${lnBox('o')}<div class="row" style="margin-top:8px">${inp('pd','Paid amount',{t:'number',v:0})}${sel('m','Method',MET2,'Cash')}</div>${inp('dt','Date',{t:'date',v:today()})}${btns('savePur()')}`);addLn('o')}
+function savePur(){const it=readLn();if(!it.length||it.some(i=>!(i.q>0)))return err('Add items with quantity');const tot=sum(it,i=>i.q*i.pr),paid=Math.min(gn('pd'),tot);$('#sv').disabled=true;
+it.forEach(i=>{const p=prod(i.pid),old=Math.max(0,p.stock);p.cost=old+i.q>0?(old*p.cost+i.q*i.pr)/(old+i.q):i.pr;p.stock+=i.q});S.pn++;
+S.pu.push({id:uid(),date:g('dt'),sid:g('s'),it:it.map(i=>({pid:i.pid,q:i.q,pr:i.pr})),paid,m:g('m')});save();cm();toast(t('Saved'));render()}
+// EXPENSES
+const CAT=['Packaging','Advertising','Delivery','Salary','Rent','Electricity','Internet','Transportation','Other'];
+function exp(){const l=S.e.filter(e=>(t(e.cat)+e.note).toLowerCase().includes(q.toLowerCase())).slice().reverse();
+return`<h1>${t('Expenses')}<button onclick="expForm()">+ ${t('New expense')}</button></h1>${sbox()}${tbl(['Date','Category','Amount','Note',''],l.slice(0,lim).map(e=>`<tr><td>${e.date.slice(5)}</td><td>${t(e.cat)}</td><td>${M(e.a)}</td><td>${esc(e.note)}${e.img?` <a href="#" onclick="event.preventDefault();modal('<img src=&quot;${e.img}&quot; style=&quot;width:100%&quot;>')">🧾</a>`:''}</td><td><button class="bd sm" onclick="ask(t('Sure'),()=>{S.e=S.e.filter(x=>x.id!='${e.id}');save();render()})">✕</button></td></tr>`))}${more(l.length)}`}
+function expForm(){modal(`<h1>${t('New expense')}</h1>${sel('cat','Category',CAT,'Packaging')}${inp('a','Amount',{t:'number'})}${sel('m','Method',MET2,'Cash')}${inp('dt','Date',{t:'date',v:today()})}${inp('note','Note')}<label>${t('Receipt')}<input id="f_img" type="file" accept="image/*"></label>${btns('saveExp()')}`)}
+async function saveExp(){const a=gn('a');if(!(a>0)||!g('dt'))return err('Required fields missing');$('#sv').disabled=true;S.e.push({id:uid(),cat:g('cat'),a,m:g('m'),date:g('dt'),note:g('note'),img:await img($('#f_img').files[0],600)});save();cm();toast(t('Saved'));render()}
+function capForm(sg){modal(`<h1>${t(sg>0?'Add capital':'Withdraw')}</h1>${inp('a','Amount',{t:'number'})}${sel('m','Method',MET2,'Cash')}${btns(`saveCap(${sg})`)}`)}
+function saveCap(sg){const a=gn('a');if(!(a>0))return err('Required fields missing');S.cap.push({a:a*sg,m:g('m'),date:today()});save();cm();render()}
+// REPORTS
+function range(){const d=today();return per=='today'?[d,d]:per=='week'?[ds(6),d]:per=='month'?[d.slice(0,8)+'01',d]:per=='year'?[d.slice(0,5)+'01-01',d]:[rf||'0000',rt||'9999']}
+function rep(){const[f,to]=range(),s=stat(f,to),o=S.o.filter(x=>ok(x)&&x.date>=f&&x.date<=to),pr={};o.forEach(x=>x.it.forEach(i=>{const p=pr[i.pid]=pr[i.pid]||{q:0,r:0,c:0};p.q+=i.q;p.r+=i.q*i.pr;p.c+=i.q*i.cs}));
+const b=bal(),iv=inv(),ar=sum(S.c,cDue),ap=sum(S.sup,sDue),cap=sum(S.cap,c=>c.a),as=b.cash+b.bank+iv+ar;
+const row=(l,v,c)=>`<tr><td>${t(l)}</td><td style="text-align:right" class="${c||''}">${M(v)}</td></tr>`;
+const cf=sum(S.o.filter(x=>x.date>=f&&x.date<=to&&ok(x)),x=>x.paid)+sum(S.col.filter(x=>x.date>=f&&x.date<=to),x=>x.a),co=sum(S.pu.filter(x=>x.date>=f&&x.date<=to),x=>x.paid)+sum(S.sp.filter(x=>x.date>=f&&x.date<=to),x=>x.a)+s.ex;
+return`<h1>${t('Reports')}<button class="b2" onclick="csv()">${t('Export CSV')}</button></h1><div class="row"><select onchange="per=this.value;render()">${['today','week','month','year','custom'].map(p=>`<option value="${p}" ${p==per?'selected':''}>${t({today:'Today',week:'Week',month:'Month',year:'Year',custom:'From'}[p])}</option>`).join('')}</select>${per=='custom'?`<input type="date" value="${rf}" onchange="rf=this.value;render()"><input type="date" value="${rt}" onchange="rt=this.value;render()">`:''}</div>
+<div class="c"><table>${row('Revenue',s.rev)}${row('COGS',-s.cogs)}${row('Gross profit',s.gp)}${row('Operating',-s.ex)}${row('Net profit',s.net,s.net<0?'neg':'pos')}${row('Cash in hand',cf-co)}</table></div>
+<h3>${t('Expense categories')}</h3><div class="c"><table>${CAT.map(k=>[k,sum(s.e.filter(e=>e.cat==k),e=>e.a)]).filter(x=>x[1]).map(x=>row(x[0],x[1])).join('')}</table></div>
+<h3>${t('Product profit')}</h3>${tbl(['Product','Qty','Revenue','Profit'],Object.keys(pr).map(id=>`<tr><td>${esc(prod(id)?.n||'-')}</td><td>${N(pr[id].q)}</td><td>${M(pr[id].r)}</td><td>${M(pr[id].r-pr[id].c)}</td></tr>`))}
+<h3>${t('Balance sheet')}</h3><div class="c"><table>${row('Cash in hand',b.cash)}${row('Bank',b.bank)}${row('Inventory',iv)}${row('Receivable',ar)}${row('Assets',as,'pos')}${row('Payable',ap)}${row('Equity',as-ap,'pos')}${row('Capital',cap)}${row('Retained profit',as-ap-cap)}</table></div>
+<h3>${t('Customer due')}</h3>${tbl(['Name','Due'],S.c.filter(c=>cDue(c)>0).map(c=>`<tr><td>${esc(c.n)}</td><td>${M(cDue(c))}</td></tr>`))}<h3>${t('Supplier due')}</h3>${tbl(['Name','Due'],S.sup.filter(c=>sDue(c)>0).map(c=>`<tr><td>${esc(c.n)}</td><td>${M(sDue(c))}</td></tr>`))}<div class="row no" style="margin-top:12px"><button class="b2" onclick="print()">${t('Print')} / PDF</button></div>`}
+async function dl(name,text,type){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+const cs=a=>a.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n');
+function csv(){const[f,to]=range(),s=stat(f,to);dl('report.csv','\ufeff'+cs([['Date','Order','Customer','Total','COGS','Paid','Status'],...S.o.filter(x=>x.date>=f&&x.date<=to).map(x=>[x.date,x.no,cust(x.cid).n,sTot(x),sCogs(x),x.paid,x.st]),[],['Revenue',s.rev],['COGS',s.cogs],['Expenses',s.ex],['Net profit',s.net]]),'text/csv')}
+// SETTINGS
+function set(){const s=S.set;return`<h1>${t('Settings')}</h1><div class="c">${inp('bn','Business name',{v:s.name})}${inp('ad','Address',{v:s.ad})}${inp('ph','Phone',{v:s.ph})}${inp('lw','Min stock',{t:'number',v:s.low})}<div class="row">${sel('lg','Language',['bn','en'],s.lang)}${sel('th','Theme',['Auto','Light','Dark'],s.theme?s.theme[0].toUpperCase()+s.theme.slice(1):'Auto')}</div><button style="margin-top:8px" onclick="Object.assign(S.set,{name:g('bn'),ad:g('ad'),ph:g('ph'),low:gn('lw'),lang:g('lg'),theme:g('th')=='Auto'?'':g('th').toLowerCase()});save();render();toast(t('Saved'))">${t('Save')}</button></div>
+<h3>${t('Backup')}</h3><div class="c row"><button onclick="dl('hisab-backup.json',JSON.stringify(S),'application/json')">${t('Backup')}</button><label style="margin:0">${t('Restore')}<input type="file" accept=".json" onchange="restore(this.files[0])"></label></div>`}
+async function restore(f){try{const d=JSON.parse(await f.text());if(!d.o||!d.p)throw 0;S=d;save();render();toast(t('Saved'))}catch(e){toast('Invalid file')}}
+render();cloud('📱 Local');
+</script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script></body></html>
